@@ -10,5 +10,3 @@ webdriver_manager
 regex
 firebase_admin
 requests
-os
-os
