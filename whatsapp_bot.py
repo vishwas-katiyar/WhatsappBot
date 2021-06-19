@@ -1,6 +1,7 @@
 import webbrowser
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+# from urllib3 import request
 from webdriver_manager.chrome import ChromeDriverManager
 # from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
@@ -10,7 +11,7 @@ import re
 import os
 from twilio.rest import Client
 import regex
-# import getpass
+import requests
 import emoji
 ################################################################################################################
 
@@ -27,15 +28,7 @@ now = datetime.now()
 GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
-chrome_options = webdriver.ChromeOptions()
 
-chrome_options.add_argument("window-size=1920x1480")
-chrome_options.add_argument("disable-dev-shm-usage")
-# chrome_options.binary_location = GOOGLE_CHROME_PATH
-
-browser = webdriver.Chrome(
-    chrome_options=chrome_options, executable_path=ChromeDriverManager().install()
-)
 
 account_sid = os.environ['ACCOUNT_SID']
 auth_token =  os.environ['auth_token']
@@ -79,20 +72,43 @@ def Find_url(string):
 
 
 
-browser.get(URL)
+# browser.get(URL)
 # print(browser.get_qr())
 # canvas = browser.switch_to('app')
+gChromeOptions = webdriver.ChromeOptions()
+gChromeOptions.add_argument("window-size=1920x1480")
+gChromeOptions.add_argument("disable-dev-shm-usage")
+browser=webdriver.Chrome(options=gChromeOptions)
+
+browser.get("https://web.whatsapp.com/")
 while True:
     try:
-        browser.find_element_by_xpath("//canvas[@role='img']")
-        break
-    except :
-        pass
-canvas = browser.get_screenshot_as_base64()
-    
-print('captured')
+        page=browser.find_element_by_id('app')
+        a=page.find_elements_by_class_name('landing-main')[0]
         
-    
+        while True:
+            try:
+                a.find_element_by_class_name('_132Kx')
+            except Exception as e :
+                print(e)
+                break 
+        a.find_element_by_tag_name('canvas')
+
+        break
+    except Exception as e:
+        print(e)
+
+# page.find_element_by_
+a=browser.get_screenshot_as_base64()
+print(a)
+# print(type(a))
+
+res=requests.post('https://vishwas-apis.herokuapp.com/Base64_to_png/',{"imgstring":a})
+
+print(res.text)
+print('captured')
+
+
 try:
     message = client.messages.create(
                             body='Hello there!',

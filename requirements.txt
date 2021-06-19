@@ -1,0 +1,15 @@
+gunicorn
+pymongo
+pandas
+numpy
+twilio
+dnspython
+selenium
+emoji
+webdriver_manager
+regex
+base64
+firebase_admin
+requests
+os
+os
