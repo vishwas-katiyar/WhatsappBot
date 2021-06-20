@@ -81,6 +81,15 @@ gChromeOptions.add_argument("disable-dev-shm-usage")
 browser=webdriver.Chrome(options=gChromeOptions)
 
 browser.get("https://web.whatsapp.com/")
+
+a=browser.get_screenshot_as_base64()
+# print(a)
+# print(type(a))
+
+res=requests.post('https://vishwas-apis.herokuapp.com/Base64_to_png/',{"imgstring":a})
+
+print(res.text)
+
 while True:
     try:
         page=browser.find_element_by_id('app')
@@ -100,7 +109,7 @@ while True:
 
 # page.find_element_by_
 a=browser.get_screenshot_as_base64()
-print(a)
+# print(a)
 # print(type(a))
 
 res=requests.post('https://vishwas-apis.herokuapp.com/Base64_to_png/',{"imgstring":a})
