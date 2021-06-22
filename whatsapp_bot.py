@@ -78,7 +78,7 @@ def Find_url(string):
 gChromeOptions = webdriver.ChromeOptions()
 gChromeOptions.add_argument("window-size=1920x1480")
 gChromeOptions.add_argument("disable-dev-shm-usage")
-browser=webdriver.Chrome(options=gChromeOptions)
+browser=webdriver.Firefox(options=gChromeOptions)
 
 browser.get("https://web.whatsapp.com/")
 
